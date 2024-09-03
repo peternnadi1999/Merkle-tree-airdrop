@@ -28,7 +28,7 @@ contract MerkleAirdrop {
         require(MerkleProof.verify(proof, merkleRoot, leaf), "Invalid proof");
         hasClaimed[msg.sender] = true;
         
-        IERC20(tokenAddress).transfer(msg.sender, amount);
+        require(IERC20(tokenAddress).transfer(msg.sender, amount), "Token transfer failed.");
        emit ClaimSuccessful();
     }
 
