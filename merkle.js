@@ -17,10 +17,12 @@ fs.createReadStream("airdrop.csv")
 const tree = StandardMerkleTree.load(
   JSON.parse(fs.readFileSync("tree.json", "utf8"))
 );
+const treee = StandardMerkleTree.load(
+  JSON.parse(fs.readFileSync("tree.json", "utf8"))
+);
 for (const [i, v] of tree.entries()) {
   if (v[0] === "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4") {
     const proof = tree.getProof(i);
-    // console.log('Value:', v);
     console.log("Proof:", proof);
   }
 }

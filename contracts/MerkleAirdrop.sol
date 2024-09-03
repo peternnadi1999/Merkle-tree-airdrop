@@ -23,12 +23,14 @@ contract MerkleAirdrop {
         bytes32[] memory proof,
         uint256 amount
     ) public {
+        
         require(!hasClaimed[msg.sender], "Airdrop already claimed.");
         bytes32 leaf = keccak256(bytes.concat(keccak256(abi.encode(msg.sender, amount))));
         require(MerkleProof.verify(proof, merkleRoot, leaf), "Invalid proof");
-        hasClaimed[msg.sender] = true;
         
-        require(IERC20(tokenAddress).transfer(msg.sender, amount), "Token transfer failed.");
+        hasClaimed[msg.sender] = true;
+    
+        IERC20(tokenAddress).transfer(msg.sender, amount);
        emit ClaimSuccessful();
     }
 
